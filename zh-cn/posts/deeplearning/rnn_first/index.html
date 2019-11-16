@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <meta http-equiv="Cache-Control" content="public" />
+ 
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.59.1" />
+
+    
+    
+    
+
+<title>深度学习之LSTM • α的博客</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="深度学习之LSTM"/>
+<meta name="twitter:description" content="深度学习之使用LSTM写诗 1 收集准备资料 收集并制作数据的原始特征:诗分为三个部分，诗名，诗人，诗本体。分别以“::”分割。本例中总有20多万"/>
+
+<meta property="og:title" content="深度学习之LSTM" />
+<meta property="og:description" content="深度学习之使用LSTM写诗 1 收集准备资料 收集并制作数据的原始特征:诗分为三个部分，诗名，诗人，诗本体。分别以“::”分割。本例中总有20多万" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/zh-cn/posts/deeplearning/rnn_first/" />
+<meta property="article:published_time" content="2019-11-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-16T00:00:00+00:00" /><meta property="og:site_name" content="α的博客" />
+
+
+
+<link rel="canonical" href="https://example.com/zh-cn/posts/deeplearning/rnn_first/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+        <div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+        
+        <a href="mailto:your@email.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+        
+        <a href="https://stackoverflow.com/users/12345678/john-doe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+        
+        <a href="https://twitter.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+        
+        <a href="https://www.facebook.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-facebook"></i></a>
+        
+        <a href="https://github.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+        
+        <a href="https://www.youtube.com/channel/12345678" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-youtube"></i></a>
+        
+        <a href="https://www.linkedin.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+        
+        <a href="https://plus.google.com/12345678" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-google"></i></a>
+        
+        <a href="https://github.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+        
+        <a href="https://weibo.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-weibo"></i></a>
+        
+        <a href="http://localhost:1313" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-weixin"></i></a>
+        
+        <a href="https://www.tumblr.com/blog/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-tumblr"></i></a>
+        
+        <a href="https://instagram.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-instagram"></i></a>
+        
+        <a href="https://gitlab.com/johndoe" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-gitlab"></i></a>
+        
+        <a href="https://www.pinterest.com/johndoe/" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-pinterest"></i></a>
+
+      </span>
+  
+</div>
+</div>
+<br>
+  <div class="w3-content">
+  
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small"> 
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  glow  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         α的博客
+      
+</u></h1>
+      
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/zh-cn/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/zh-cn/about/" class="w3-bar-item w3-button w3-hide-small">关于</a>
+    
+      <a href="/zh-cn/categories/" class="w3-bar-item w3-button w3-hide-small">分类</a>
+    
+      <a href="/zh-cn/tags/" class="w3-bar-item w3-button w3-hide-small">标签</a>
+    
+      <a href="/zh-cn/allposts/" class="w3-bar-item w3-button w3-hide-small">全部帖子</a>
+    
+      <a href="/" class="w3-bar-item w3-button w3-hide-small">English</a>
+    
+   
+    
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/zh-cn/about/" class="w3-bar-item w3-button">关于</a>
+      
+      <a href="/zh-cn/categories/" class="w3-bar-item w3-button">分类</a>
+      
+      <a href="/zh-cn/tags/" class="w3-bar-item w3-button">标签</a>
+      
+      <a href="/zh-cn/allposts/" class="w3-bar-item w3-button">全部帖子</a>
+      
+      <a href="/" class="w3-bar-item w3-button">English</a>
+      
+  
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+      
+  }
+
+ 
+  </script>
+
+  
+
+
+    
+    <hr class="headfoot">
+   
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        
+        <div id="content" >
+          
+    <div class="w3-container w3-card-4">
+      
+
+<h1 id="深度学习之使用lstm写诗">深度学习之使用LSTM写诗</h1>
+
+<h2 id="u-1-收集准备资料-u"><u>1 收集准备资料</u></h2>
+
+<p><img src="http://localhost:1313/zh-cn/img/LSTM_1/data.png" alt="aa" /></p>
+
+<blockquote>
+<p>收集并制作数据的原始特征:诗分为三个部分，诗名，诗人，诗本体。分别以“::”分割。本例中总有20多万首。</p>
+</blockquote>
+
+<h2 id="u-2-预处理数据-u"><u>2 预处理数据</u></h2>
+
+<blockquote>
+<h2 id="思考流程">思考流程</h2>
+
+<p>首先思考输入是什么，即x = tf.placeholder的shape是什么,然后还要得出一个<u>词汇表</u>,按出现频率算出一个<u>字典</u><br />
+将每个汉字映射成一个数字，用于最后打印诗时的索引<br />
+输入应该是一首诗一首诗的进入模型，每一个汉字对应一个人lstm的Xt，一次性输入batch_size首诗<br />
+对数据进行过滤垃圾是非常关键的一步，否则容易在训练时造成梯度消失或梯度爆炸。这里的处理比较简单南，对于一首诗就只是去除掉一些出现过少的汉字，对于整体是去除掉一些过长或过短的诗。</p>
+
+<blockquote>
+<pre><code class="language-python">f = open(file, &quot;r&quot;, encoding=&quot;UTF-8&quot;)  
+for i in f:  
+    poem_name, poet, poem_raw = i.strip().split(&quot;::&quot;)  
+    poem_raw = poem_raw.replace(' ', ',')  
+    if '_' in poem_raw or '《' in poem_raw or '[' in poem_raw or '(' in poem_raw or '（' in poem_raw:  
+        continue  
+    if len(poem_raw) &lt; 10 or len(poem_raw) &gt; 128:  # 去除掉这两种不好的数据  
+        continue  
+    poem_raw = '[' + poem_raw + ']'  
+    poem.append(poem_raw)
+for poem_raw in poem:
+    for word in poem_raw:
+        if word not in allword:
+            allword[word] = 1
+        else:
+            allword[word] += 1
+
+erase = []
+for i in allword:
+    if allword[i] &lt; 2:
+        erase.append(i)
+for i in erase:
+    del allword[i]
+    # 删除过少的词
+    words, a = zip(*wordPairs)
+words += (&quot; &quot;,)
+wordToid = dict(zip(words, range(len(words))))  # 为各个排名前列的字从0开始排序
+b = len(allword)
+c = len(words)
+wordTOIDFun = lambda A: wordToid.get(A, len(allword))  # 这是一个方法（函数），用于取得指定字的id
+
+poemsVector = [([wordTOIDFun(word) for word in poem_raw]) for poem_raw in poem]  # 这里用两个循环按顺序输出每个字的id
+</code></pre>
+</blockquote>
+
+<h2 id="制作输入">制作输入</h2>
+
+<p>需要选定batch_size，batchNum，根据总样本量进行调整
+由于不是每首诗长度都一样，因此需要在每个batch中把长度定为一样，选定最长的长度，没达到的补0</p>
+
+<blockquote>
+<pre><code class="language-python">batch_size = 20  # 暂定为5
+batchNum = (len(poemsVector) - 1) // batch_size  # size为一次训练用的样本数（一首诗为一个样本），num表示训练次数，len是总样本数/
+X = []  # 输入
+Y = []  # 正确的输出（每个汉字后一个汉字）
+for i in range(batchNum):  # i从0开始
+    batch = poemsVector[i * batch_size: (i + 1) * batch_size]  # 一次训练5个样本
+    # print(batch)
+    maxLentgh = max([len(vector) for vector in batch])  # 找到每次训练中最长的诗，让其他诗加空格到一样的长度
+    temp = np.full((batch_size, maxLentgh), wordTOIDFun(&quot; &quot;), dtype=np.int32)
+    for j in range(batch_size):
+        temp[j, :len(batch[j])] = batch[j]  # 每batch_size轮后，temp为一个矩阵，内容和batch一样，只是没有逗号
+        # print(temp)
+        # print(&quot;######################&quot;)
+    X.append(temp)
+    temp2 = np.copy(temp)  # copy!!!!!!不能用=，copy返回的是一个数组对象，=返回的是列表
+    temp2[:, :-1] = temp[:, 1:]  # temp2为temp的错位，例如：temp = 【1,2,3,4,5】,temp2 = [2,3,4,5,5]
+</code></pre>
+</blockquote>
+</blockquote>
+
+<h2 id="u-3-建立模型-u"><u>3 建立模型</u></h2>
+
+<blockquote>
+<p>便于以后调用，用一个函数进行封装<br />
+首先需要对词汇进行embedding稀释，这里用到了共享变量，以防以后多次调用重名变量</p>
+
+<blockquote>
+<pre><code class="language-python">    with tf.variable_scope(&quot;embedding&quot;) as vs:
+        if flag == 1:
+            vs.reuse_variables()
+        embedding = tf.get_variable(name=&quot;embedding&quot;, shape=[wordNum + 1, hidden_units],
+                                    dtype=tf.float32)  # 每个汉字embeddings为120
+        inputs = tf.nn.embedding_lookup(embedding, gtX)  # inputs shape为（batch_size,max_length（未知）,hidden_nuits）
+    &quot;&quot;&quot;
+    Lstm中的state是 同一层LStm间传递数据，通过state_is_tuple转换成（c，s），output 是这一层的lstm传递给下一层的，是一个数据
+    &quot;&quot;&quot;
+</code></pre>
+</blockquote>
+
+<p>建立LSTM模型通过调用tf的现成函数就可以完成</p>
+
+<blockquote>
+<pre><code class="language-python">    basicCell = [tf.nn.rnn_cell.BasicLSTMCell(hidden_units) for layer in range(layers)]  # 不能用tf.keras.layers.LSTM
+    stackCell = tf.nn.rnn_cell.MultiRNNCell(basicCell)
+    initialstate = stackCell.zero_state(np.shape(gtX)[0], tf.float32)
+    RNN = tf.keras.layers.RNN(cell=stackCell, return_sequences=True,
+                              return_state=False)  # return_sequence一点要True!!!!!!，要返回所有时间步的output
+    output = RNN.call(inputs=inputs, initial_state=initialstate)
+    output = tf.reshape(output, [-1, hidden_units])  # shape(batch_size*maxlength,120)
+</code></pre>
+</blockquote>
+
+<p>这里涉及到很多关于LSTM的输入输出维度问题，总的来说state就是LSTM的横向输出，包括（cell_state,output），而output就是一层LSTM向上一层的输出，也就是<u><b>state包括output</b></u></p>
+
+<p>最后是一个softmax层，将最后的output输出成0到1之间的概率，用于表示生成每个汉字的概率</p>
+
+<blockquote>
+<pre><code class="language-python">with tf.variable_scope(&quot;softmax&quot;):  # 用于输出最可能的汉字，在words里
+    w = tf.get_variable(&quot;w&quot;, shape=[hidden_units, len(words)])
+    b = tf.get_variable(&quot;b&quot;, shape=[len(words)])
+    logits = tf.matmul(output, w) + b  # shape(batch_size*maxhength,len(words)), prob中的 len(words)代表每个（368个）汉字出现的概率
+
+    probs = tf.nn.softmax(logits,axis=-1)
+     # default axis = -1,表示计算最后一维的softmax， 每个汉字输出len(words)个概率，对应生成每个字的概率，总和为一，最大就是应该生成的那个
+</code></pre>
+</blockquote>
+</blockquote>
+
+<h2 id="u-4-进行训练-u"><u>4 进行训练</u></h2>
+
+<blockquote>
+<p>训练无非就是算出loss进行sgd，此处选用Adam优化器来，0.05的初始学习率进行训练，训练速度过大容易出现梯度过大，导致最后出现loss变成“nan”</p>
+
+<blockquote>
+<pre><code class="language-python">gtX = tf.placeholder(tf.int32, shape=[batch_size, None])  # input(None可以是任何数,
+# 因为X的维度是不定的（其中maxlengh每一个batch都不一样），所以用None来暂代) 以后当维度不定时，可以用none代替（占位）
+gtY = tf.placeholder(tf.int32, shape=[batch_size, None])  # output
+labels = tf.reshape(gtY, shape=[-1])
+logits, probs, stackcell = buildmodel(wordNum, gtX, 0)
+loss = tf.contrib.legacy_seq2seq.sequence_loss_by_example([logits], [labels],
+                                                          [tf.ones_like(labels, dtype=tf.float32)],
+                                                          wordNum)
+#  tf.one_like(Creates a tensor with all elements set to 1.)
+cost = tf.reduce_mean(loss)
+var = tf.trainable_variables()  # 包括embedding ,weight*3,bias*3,softmax(weihgt*1,bias*1)
+grads, a = tf.clip_by_global_norm(tf.gradients(cost, var),
+                                  5)  # tf.gradients 输出 A list of sum(dy/dx) for each x in xs.
+op = tf.train.AdamOptimizer(learning_rate=learningRateBase)  # 以learningrate这个值更新 weight，bias
+trainop = op.apply_gradients(zip(grads, var))  
+</code></pre>
+</blockquote>
+
+<p>定义一些关键数据</p>
+
+<blockquote>
+<pre><code>    globalstep = 0
+    epochNum = 10  # 一个epoch代表训练完一整个样本集（all）
+    epochStep = len(X)
+    learningRateDecreasestep = 100  # 每隔100个step更新一次rate
+</code></pre>
+</blockquote>
+
+<p>开始进行训练并将训练好的模型进行保存</p>
+
+<blockquote>
+<pre><code>with tf.Session() as s:
+       s.run(init)  # 初始化所有变量
+       saver = tf.train.Saver()
+       if istrain:
+           checkpoint = tf.train.get_checkpoint_state(checkpointspath)
+           if checkpoint and checkpoint.model_checkpoint_path:  # 检查是否已经存在训练模型
+               saver.restore(s, checkpoint.model_checkpoint_path)
+               print(&quot;已成功保存在&quot; + checkpoint.model_checkpoint_path)
+           else:
+               print(&quot;未发现模型&quot;)
+       for epoch in range(epochNum):
+           # 一个epoch含有batchNum（=len（X））个batch，一个batch含有batch_size个样本（一句诗）
+
+           if globalstep % learningRateDecreasestep == 0:
+               learningRate = learningRateBase * (0.95 ** epoch)
+           for step, (x, y) in enumerate(zip(X, Y)):
+               globalstep = epoch * epochStep + step
+               a, loss = s.run([trainop, cost], feed_dict={gtX: x, gtY: y})
+               print(&quot;epoch: %d steps:%d/%d loss:%3f&quot; % (epoch, step, epochStep, loss))
+               if globalstep % 1000 == 0:
+                   saver.save(s, checkpointspath + &quot;/poem&quot;, global_step=epoch)
+           # 保存模型
+</code></pre>
+</blockquote>
+
+<p>到此为止，所有训练任务都已完成，下面就是应用环节，一般是先运行train，将训练好的模型保存好之后直接用，因此需要封装.</p>
+
+<blockquote>
+<pre><code class="language-python">    定义一个概率映射到汉字的函数
+    def probToWord(weight, word):
+        t = np.cumsum(weight)
+        s = np.sum(weight)
+        coff = np.random.rand(1)
+        index = np.searchsorted(t, coff * s)
+        a = weight.index(max(weight))
+        return word[a]
+
+</code></pre>
+</blockquote>
+</blockquote>
+
+<h2 id="u-5-开始写诗-u"><u>5 开始写诗</u></h2>
+
+<blockquote>
+<blockquote>
+<pre><code class="language-python">      def write(poem_num, flag):
+          gtX = tf.placeholder(shape=[1, None], dtype=tf.int32)  # type必须是int32/int32
+          logits, probs, stackCell = buildmodel(wordNum, gtX, flag)
+          init = tf.global_variables_initializer()
+          with tf.Session() as ss:
+              ss.run(init)
+              saver = tf.train.Saver()
+              checkpoint = tf.train.get_checkpoint_state(checkpointspath)
+              if checkpoint and checkpoint.model_checkpoint_path:
+                  saver.restore(ss, checkpoint.model_checkpoint_path)
+                  print(&quot;restored %s&quot; % checkpoint.model_checkpoint_path)
+              else:
+                  print(&quot;no checkpoint found!&quot;)
+                  exit(1)
+              FinalPoem = []
+              for i in range(poem_num):
+                  x = np.array([[wordToid['[']]])  # 以“[”开头
+                  prob = ss.run([probs], feed_dict={gtX: x})
+                  word = probToWord(prob, words)
+                  OnePoem = &quot;&quot;
+                  while word != ']' and word != ' ':
+                      OnePoem += word
+                      if word == ',':
+                          OnePoem += '\n'
+                      x = np.array([[wordToid[word]]])
+                      prob = ss.run([probs], feed_dict={gtX: x})
+                      word = probToWord(prob, words)
+                  print(OnePoem)
+                  FinalPoem.append(OnePoem)
+
+
+      # train(istrain=True)
+
+      write(3, 0)
+
+</code></pre>
+</blockquote>
+</blockquote>
+
+<h2 id="u-大功告成-u"><u>大功告成！</u></h2>
+
+    </div>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="https://johndoe.com">John Doe</a> 2018 | <a href="https://github.com/johndoe">Github</a> | <a href="https://twitter.com/johndoe">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">回到顶端
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>
