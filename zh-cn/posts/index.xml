@@ -6,10 +6,19 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 Nov 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="http://localhost:1313/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>基于肌电的机械手控制方法研究</title>
+      <link>http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/semg_1/</link>
+      <pubDate>Tue, 19 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/semg_1/</guid>
+      <description>肌电论文之基于肌电的机械手控制方法研究 现有研究 利用 sEMG 进行假肢 运动模式的控制主要有两种方法：一是在皮肤表面粘贴多个生物采集电极，每对 电极拾取的</description>
+    </item>
     
     <item>
       <title>深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks</title>
@@ -17,7 +26,7 @@
       <pubDate>Mon, 18 Nov 2019 00:00:00 +0000</pubDate>
       
       <guid>http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/</guid>
-      <description>Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。 过去已有的成果 1 Simulated Annealing and Discrete Error Propagation 2 Explicit</description>
+      <description>深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。</description>
     </item>
     
     <item>

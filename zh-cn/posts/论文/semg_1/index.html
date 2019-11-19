@@ -16,23 +16,23 @@
     
     
 
-<title>深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks • α的博客</title>
+<title>基于肌电的机械手控制方法研究 • α的博客</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks"/>
-<meta name="twitter:description" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。"/>
+<meta name="twitter:title" content="基于肌电的机械手控制方法研究"/>
+<meta name="twitter:description" content="肌电论文之基于肌电的机械手控制方法研究 现有研究 利用 sEMG 进行假肢 运动模式的控制主要有两种方法：一是在皮肤表面粘贴多个生物采集电极，每对 电极拾取的"/>
 
-<meta property="og:title" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks" />
-<meta property="og:description" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。" />
+<meta property="og:title" content="基于肌电的机械手控制方法研究" />
+<meta property="og:description" content="肌电论文之基于肌电的机械手控制方法研究 现有研究 利用 sEMG 进行假肢 运动模式的控制主要有两种方法：一是在皮肤表面粘贴多个生物采集电极，每对 电极拾取的" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/" />
-<meta property="article:published_time" content="2019-11-18T00:00:00+00:00" />
-<meta property="article:modified_time" content="2019-11-18T00:00:00+00:00" /><meta property="og:site_name" content="α的博客" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/semg_1/" />
+<meta property="article:published_time" content="2019-11-19T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-19T00:00:00+00:00" /><meta property="og:site_name" content="α的博客" />
 
 
 
-<link rel="canonical" href="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/" />
+<link rel="canonical" href="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/semg_1/" />
 
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -225,77 +225,117 @@ function displaymenu() {
     <div class="w3-container w3-card-4">
       
 
-<h1 id="深度学习论文之supervised-sequence-labelling-with-recurrent-neural-networks">深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks</h1>
+<h1 id="肌电论文之基于肌电的机械手控制方法研究">肌电论文之基于肌电的机械手控制方法研究</h1>
 
-<p><img src="/img/algorithms-paper/1.jpg" alt="error" /></p>
-
-<h2 id="导言">导言</h2>
+<h2 id="现有研究">现有研究</h2>
 
 <blockquote>
-<p>RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。</p>
-</blockquote>
-
-<h2 id="过去已有的成果">过去已有的成果</h2>
-
-<blockquote>
-<p>1 <u>Simulated Annealing and Discrete Error Propagation  </u><br />
-2 <u>Explicit time delay modeling  </u><br />
-3 <u>Time constants  </u><br />
-4 <u>Hierarchical sequence compression  </u><br />
-5 <u>L1 / L2 regularization on the recurrent weights  </u><br />
-6 <u>Hessian-Free Optimization  </u><br />
-7 <u>Gradient Clip  </u></p>
-</blockquote>
-
-<h2 id="本文介绍的研究">本文介绍的研究</h2>
+<p>利用 sEMG 进行假肢
+运动模式的控制主要有两种方法：一是在皮肤表面粘贴多个生物采集电极，每对
+电极拾取的 sEMG 对应一种肢体动作；另一种是对 sEMG 进行模式识别，可以利用
+少量通道信号识别出多种运动模式。有效的模式识别主要包括特征提
+取和分类两部分。<br />
+特征提取的方法:</p>
 
 <blockquote>
-<p>LSTM<br />
-Bi-directional LSTM（双向LSTM，使输出可以获得将来的信息）</p>
+<p>时域分析<br />
+频域分析<br />
+时频域分析<br />
+参数模型<br />
+高阶谱分析</p>
+</blockquote>
 </blockquote>
 
-<p><img src="/img/algorithms-paper/1.png" alt="error" /><br />
-<img src="/img/algorithms-paper/2.png" alt="error" /></p>
+<h2 id="本文内容">本文内容</h2>
 
 <blockquote>
-<p>作者比较了四种神经网络模型，结果BLSTM效果最好。且它没有时间而且延迟训练epoch更少</p>
+<p>上肢 sEMG 采集系统整体设计<br />
+上肢肌电信号模式识别离线分析,采用BP神经网络训练<br />
+肌电信号训练平台的搭建和实时控制机械手</p>
 </blockquote>
 
-<p><img src="/img/algorithms-paper/3.png" alt="error" /></p>
+<h2 id="b-上肢肌电信号理论基础-b"><b>上肢肌电信号理论基础</b></h2>
+
+<h3 id="u-产生机理-u"><u>产生机理</u></h3>
 
 <blockquote>
-<p>作者通过实验介绍了在LSTM中，前向和反向均能捕捉到数据的某些特征属性,因此BLSTM能取得比lstm更好地效果。</p>
+<p>上肢肌肉的运动是由大脑皮层产生抽象的运动意识，通过神经系统的传递发送
+给运动器官从而产生运动，并且在产生运动的同时会产生肌电信号，通过神经系统
+反馈给大脑皮层。这个过程，神经系统在中间起到传递作用。</p>
 </blockquote>
 
-<h3 id="hmm">HMM</h3>
+<h3 id="u-肌电信号特点-u"><u>肌电信号特点</u></h3>
 
 <blockquote>
-<p>但是RNN仍然有很严重的缺点，它对输入输出的序列对应要求严格，对于输入有冗余数据，噪音大的数据，很容易造成梯度爆炸。对于我们不知道输入输出对应关系的数据，我们可以用隐马尔科夫模型。</p>
+<p>1  不同人做同一个动作，肌电信号差异很大，同一个人做不同动作差异也很大<br />
+2  很微小，幅值在0~5mv之间<br />
+3  交变性，信号有负值<br />
+4  对称性，通常情况下，肌电信号之和大致为零，可以将它看作是不同频率的
+正弦波的叠加。<br />
+5  低频性，频率范围为 0 ~1000Hz，有效的频率范围在
+0 ~ 500Hz<br />
+6  差异性，每块肌肉在频域内的肌电信号频率幅值有着一定差别，且功率谱分
+布千差万别。<br />
+7  规律性，不同运动模式，幅频特性曲线大体上一致</p>
+</blockquote>
+
+<p><img src="/img/sEMG-paper/sEMG_liner_model.png" alt="error" /></p>
+
+<h3 id="u-肌电信号的数学模型-u"><u>肌电信号的数学模型</u></h3>
 
 <blockquote>
-<p>GNN+HMM<br />
-DNN+HMM<br />
-BLSTM+HMM</p>
+<p>U(t)是轴突发出的脉冲信号，不断更新，作为信号源<br />
+图中有很多条分支，每条分支对应着一根肌纤维，所有的肌纤维
+都是以 U(t) 作为驱动信号源的。其中包含参数延迟，表面动作电位P(t),肌纤维深度g(t).<br />
+之后涉及比较深奥的数学分析，以及生物知识，暂不介绍（持续关注）</p>
 </blockquote>
 
-<p>这三种训练效果从上到下越来越好</p>
-</blockquote>
+<h2 id="b-上肢肌电信号采集系统设计与实现-b"><b>上肢肌电信号采集系统设计与实现</b></h2>
 
-<h3 id="ctc">CTC</h3>
+<h3 id="u-流程-u"><u>流程</u></h3>
 
 <blockquote>
-<p>相比较HMM，CTC有完全可以取代它的能力。</p>
+<p>肌电采集电极将人体的离子电流
+转换成电子电流，经过信号采集电路对肌电信号进行放大、滤波以及电平抬升，然后利用stm32自带的转换，将模拟信号转换为数字信号。之后，系统通过串口将数据传给上位机，进行离线分析，选择好的模型和算法。根据这个算法，输出机械手控制信号。之后设计电路知识，暂不介绍（持续关注）</p>
 </blockquote>
 
-<h3 id="比较ctc与hmm">比较CTC与HMM</h3>
+<h2 id="b-上肢肌电信号模式识别离线分析-b"><b>上肢肌电信号模式识别离线分析</b></h2>
 
 <blockquote>
-<p>1  HMM是生成模型，LSTM-CTC是判别模型，后者更适用于标记任务<br />
-2  GMM-HMM with diagonal covariance matrix assume features are not correlated.- RNN, LSTM do not assume features came from particular distribution.- RNN, LSTM can model non-linear relationship among features.<br />
-3  States of HMM are discrete and single valued- RNN, LSTM activations are continuous and multivariate. - HMM with N states can model only O(logN) bit information- For RNN, the amount of information grows linearly with the number of hidden units<br />
-4  RNN-CTC can deal with continuous input without segments<br />
-5  HMM define probabilities of each observation to depend only on current state- HMM cannot model data where each observation depend on observation around.- Modeling longer range of context is difficult with HMM.- HMM can model rich context with more parameters, but get unstable.22</p>
+<p>主要分为活动段检测，特征提取，动作分类</p>
 </blockquote>
+
+<h3 id="u-活动段检测-u"><u>活动段检测</u></h3>
+
+<blockquote>
+<p>主要目的是将动作执
+行时的信号从连续采集的多通道信号数据流中提取出来,活动段信号是手臂动作在 sEMG 上的直接反映.早期，肌电信号活动段检测方法一般都是由经验丰富的医生直接观察得到.目前有的检测算法是：</p>
+
+<blockquote>
+<p>标准差和绝对值均值的阈值判断方法、
+短时傅里叶<br />
+小波变换<br />
+自组织人工神经网络<br />
+移动平均法</p>
+</blockquote>
+
+<p>考虑到编程难度，本文采用了绝对值均值(MAV)来进行肌电信号的活动段检测</p>
+</blockquote>
+
+<h3 id="u-上肢肌电信号特征提取方法-u"><u>上肢肌电信号特征提取方法</u></h3>
+
+<blockquote>
+<p>由于 sEMG 是非平稳随机信号，一般采用时域、频
+域和时频域特征提取方法.</p>
+</blockquote>
+
+<p>提取完信号特征后用了四种方法进行聚类分析：<br />
+<img src="/img/sEMG-paper/iEMG.png" alt="error" />
+<img src="/img/sEMG-paper/SD.png" alt="error" />
+<img src="/img/sEMG-paper/MPF.png" alt="error" />
+<img src="/img/sEMG-paper/MF.png" alt="error" /></p>
+
+<h2 id="b-上肢肌电信号分类器设计与选取-b"><b>上肢肌电信号分类器设计与选取</b></h2>
 
     </div>
         </div>
