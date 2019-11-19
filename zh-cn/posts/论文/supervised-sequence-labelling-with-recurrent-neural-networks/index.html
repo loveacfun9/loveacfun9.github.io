@@ -6,9 +6,7 @@
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-
-
+  <meta http-equiv="Cache-Control" content="public" />
  
 <!-- Enable responsiveness on mobile devices -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -18,24 +16,23 @@
     
     
 
-<title>Tags • α的博客</title>
+<title>深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks • α的博客</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Tags"/>
-<meta name="twitter:description" content="Hugo W3 Simple Theme"/>
+<meta name="twitter:title" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks"/>
+<meta name="twitter:description" content="Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。 过去已有的成果 1 Simulated Annealing and Discrete Error Propagation 2 Explicit"/>
 
-<meta property="og:title" content="Tags" />
-<meta property="og:description" content="Hugo W3 Simple Theme" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://localhost:1313/zh-cn/tags/" />
-<meta property="og:site_name" content="α的博客" />
+<meta property="og:title" content="深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks" />
+<meta property="og:description" content="Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。 过去已有的成果 1 Simulated Annealing and Discrete Error Propagation 2 Explicit" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/" />
+<meta property="article:published_time" content="2019-11-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-18T00:00:00+00:00" /><meta property="og:site_name" content="α的博客" />
 
 
 
-<link rel="canonical" href="http://localhost:1313/zh-cn/tags/" />
-<link href="http://localhost:1313/zh-cn/tags/index.xml" rel="alternate" type="application/rss+xml" title="" />
-  <link href="http://localhost:1313/zh-cn/tags/index.xml" rel="feed" type="application/rss+xml" title="" />
+<link rel="canonical" href="http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/" />
 
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -224,18 +221,83 @@ function displaymenu() {
       <div>
         
         <div id="content" >
-          <div class="w3-content w3-card-4" >
+          
+    <div class="w3-container w3-card-4">
+      
 
-    <div class="w3-container  w3-section w3-center">
-     <h2 class="w3-text-blue" style="text-shadow:1px 1px 0 #444">
-        <u>Tags</u>
-      </h2>
-      <div class="w3-container w3-center">
-        
-      </div>
+<h1 id="supervised-sequence-labelling-with-recurrent-neural-networks">Supervised Sequence Labelling with Recurrent Neural Networks</h1>
+
+<p><img src="/img/论文/1.jpg" alt="error" /></p>
+
+<h2 id="导言">导言</h2>
+
+<blockquote>
+<p>RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。</p>
+</blockquote>
+
+<h2 id="过去已有的成果">过去已有的成果</h2>
+
+<blockquote>
+<p>1 <u>Simulated Annealing and Discrete Error Propagation  </u><br />
+2 <u>Explicit time delay modeling  </u><br />
+3 <u>Time constants  </u><br />
+4 <u>Hierarchical sequence compression  </u><br />
+5 <u>L1 / L2 regularization on the recurrent weights  </u><br />
+6 <u>Hessian-Free Optimization  </u><br />
+7 <u>Gradient Clip  </u></p>
+</blockquote>
+
+<h2 id="本文介绍的研究">本文介绍的研究</h2>
+
+<blockquote>
+<p>LSTM<br />
+Bi-directional LSTM（双向LSTM，使输出可以获得将来的信息）</p>
+</blockquote>
+
+<p><img src="/img/论文/1.png" alt="error" /><br />
+<img src="/img/论文/1.png" alt="error" /></p>
+
+<blockquote>
+<p>作者比较了四种神经网络模型，结果BLSTM效果最好。且它没有时间而且延迟训练epoch更少</p>
+</blockquote>
+
+<p><img src="/img/论文/3.png" alt="error" /></p>
+
+<blockquote>
+<p>作者通过实验介绍了在LSTM中，前向和反向均能捕捉到数据的某些特征属性,因此BLSTM能取得比lstm更好地效果。</p>
+</blockquote>
+
+<h3 id="hmm">HMM</h3>
+
+<blockquote>
+<p>但是RNN仍然有很严重的缺点，它对输入输出的序列对应要求严格，对于输入有冗余数据，噪音大的数据，很容易造成梯度爆炸。对于我们不知道输入输出对应关系的数据，我们可以用隐马尔科夫模型。</p>
+
+<blockquote>
+<p>GNN+HMM<br />
+DNN+HMM<br />
+BLSTM+HMM</p>
+</blockquote>
+
+<p>这三种训练效果从上到下越来越好</p>
+</blockquote>
+
+<h3 id="ctc">CTC</h3>
+
+<blockquote>
+<p>相比较HMM，CTC有完全可以取代它的能力。</p>
+</blockquote>
+
+<h3 id="比较ctc与hmm">比较CTC与HMM</h3>
+
+<blockquote>
+<p>1  HMM是生成模型，LSTM-CTC是判别模型，后者更适用于标记任务<br />
+2  GMM-HMM with diagonal covariance matrix assume features are not correlated.- RNN, LSTM do not assume features came from particular distribution.- RNN, LSTM can model non-linear relationship among features.<br />
+3  States of HMM are discrete and single valued- RNN, LSTM activations are continuous and multivariate. - HMM with N states can model only O(logN) bit information- For RNN, the amount of information grows linearly with the number of hidden units<br />
+4  RNN-CTC can deal with continuous input without segments<br />
+5  HMM define probabilities of each observation to depend only on current state- HMM cannot model data where each observation depend on observation around.- Modeling longer range of context is difficult with HMM.- HMM can model rich context with more parameters, but get unstable.22</p>
+</blockquote>
+
     </div>
-  
-</div>
         </div>
         
           <script>
@@ -273,6 +335,7 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
         
            
           
+  
 
         
         
@@ -377,6 +440,13 @@ function scrollFunction() {
     
     
     
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    
     <!-- cookie bar -->
     
 <!-- Back to top -->
@@ -403,6 +473,11 @@ function scrollFunction() {
     
 
     <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
     
 }
 

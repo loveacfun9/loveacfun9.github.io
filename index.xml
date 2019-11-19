@@ -2,39 +2,39 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title></title>
-    <link>https://example.com/</link>
+    <link>http://localhost:1313/</link>
     <description>Recent content on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 10 Nov 2018 00:28:38 +0000</lastBuildDate>
     
-	<atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>About W3 Simple</title>
-      <link>https://example.com/about/</link>
+      <link>http://localhost:1313/about/</link>
       <pubDate>Sat, 10 Nov 2018 00:28:38 +0000</pubDate>
       
-      <guid>https://example.com/about/</guid>
+      <guid>http://localhost:1313/about/</guid>
       <description>W3 Simple is a Hugo theme written by Jesse Lau . The main motivation for writing this theme was to provide a really minimal theme with W3 CSS included.</description>
     </item>
     
     <item>
       <title>Ninth</title>
-      <link>https://example.com/posts/ninth/</link>
+      <link>http://localhost:1313/posts/ninth/</link>
       <pubDate>Sun, 07 Oct 2018 11:40:14 +0200</pubDate>
       
-      <guid>https://example.com/posts/ninth/</guid>
+      <guid>http://localhost:1313/posts/ninth/</guid>
       <description>This is another post Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean semper libero quis dictum dapibus. Nulla egestas vitae augue eu rutrum. Duis ullamcorper dictum ipsum. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse tortor dui, fermentum non dapibus id, volutpat non odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas fringilla tempus urna ac laoreet. Curabitur sed bibendum lectus.</description>
     </item>
     
     <item>
       <title>Search</title>
-      <link>https://example.com/search/</link>
+      <link>http://localhost:1313/search/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/search/</guid>
+      <guid>http://localhost:1313/search/</guid>
       <description> Manticore Search </description>
     </item>
     

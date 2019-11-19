@@ -2,21 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on </title>
-    <link>https://example.com/zh-cn/posts/</link>
+    <link>http://localhost:1313/zh-cn/posts/</link>
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Nov 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 Nov 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://example.com/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost:1313/zh-cn/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>深度学习论文之Supervised Sequence Labelling with Recurrent Neural Networks</title>
+      <link>http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/</link>
+      <pubDate>Mon, 18 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>http://localhost:1313/zh-cn/posts/%E8%AE%BA%E6%96%87/supervised-sequence-labelling-with-recurrent-neural-networks/</guid>
+      <description>Supervised Sequence Labelling with Recurrent Neural Networks 导言 RNN的优点是善于处理上下文有联系的序列数据，缺点是可联系的上下文有限，容易引起梯度消失。 过去已有的成果 1 Simulated Annealing and Discrete Error Propagation 2 Explicit</description>
+    </item>
+    
+    <item>
       <title>深度学习之LSTM</title>
-      <link>https://example.com/zh-cn/posts/deeplearning/rnn_first/</link>
+      <link>http://localhost:1313/zh-cn/posts/deeplearning/rnn_first/</link>
       <pubDate>Sat, 16 Nov 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/zh-cn/posts/deeplearning/rnn_first/</guid>
+      <guid>http://localhost:1313/zh-cn/posts/deeplearning/rnn_first/</guid>
       <description>深度学习之使用LSTM写诗 1 收集准备资料 收集并制作数据的原始特征:诗分为三个部分，诗名，诗人，诗本体。分别以“::”分割。本例中总有20多万</description>
     </item>
     
