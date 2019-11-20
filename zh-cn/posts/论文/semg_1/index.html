@@ -279,7 +279,7 @@ function displaymenu() {
 7  规律性，不同运动模式，幅频特性曲线大体上一致</p>
 </blockquote>
 
-<p><img src="/img/sEMG-paper/sEMG_liner_model.png" alt="error" /></p>
+<p><img src="/img/sEMG-paper/sEMG_liner_model.PNG" alt="error" /></p>
 
 <h3 id="u-肌电信号的数学模型-u"><u>肌电信号的数学模型</u></h3>
 
@@ -330,12 +330,68 @@ function displaymenu() {
 </blockquote>
 
 <p>提取完信号特征后用了四种方法进行聚类分析：<br />
-<img src="/img/sEMG-paper/iEMG.png" alt="error" />
-<img src="/img/sEMG-paper/SD.png" alt="error" />
-<img src="/img/sEMG-paper/MPF.png" alt="error" />
-<img src="/img/sEMG-paper/MF.png" alt="error" /></p>
+<img src="/img/sEMG-paper/iEMG.PNG" alt="error" />
+<img src="/img/sEMG-paper/SD.PNG" alt="error" />
+<img src="/img/sEMG-paper/MPF.PNG" alt="error" />
+<img src="/img/sEMG-paper/MF.PNG" alt="error" /></p>
 
 <h2 id="b-上肢肌电信号分类器设计与选取-b"><b>上肢肌电信号分类器设计与选取</b></h2>
+
+<blockquote>
+<p>利用上肢 sEMG 进行动作识别，特征提取是第一步，有效地分类是关键。本文给出了四种选择：</p>
+</blockquote>
+
+<p><img src="/img/sEMG-paper/select_model.PNG" alt="error" /></p>
+
+<blockquote>
+<p>综合考量后选用BP神经网络和SVM分类器进行动作识别。本文使用的神经网络比较简单。就是一个输入，一个隐藏，一个输出层。此外，文章比较系统的概括了神经网络的建立过程，分为七个阶段：</p>
+
+<blockquote>
+<p>步骤 1：网络初始化，根据提取的特征值的个数给定输入节点的数目 n ，根据要
+识别动作的数目确定输出节点的数目 m ，此外需要给定隐含层的节点数目l ，l 值的
+具体计算过程将在下文中进行介绍。此外，还需要初始化两个连接权值w1,w2
+隐含层和输出层阈值b1 和b2 ，并且根据实验需要选取合适的传递函数和学习速率<br />
+步骤 2：隐含层输出计算。手势动作的特征向量为 X ，依据 X ,w,b确定输出H<br />
+步骤 3：输出层输出计算。依据 H ，w2,b2计算预测输出O 。<br />
+步骤 4：预测值与期望值的差值计算。依据O 和期望输出Y ，得到预测误差e 。<br />
+步骤 5：权值(weight)更新。<br />
+步骤 6：偏差(bias)更新。<br />
+步骤 7：判断是否满足终止条件，如果没有满足，返回步骤 2</p>
+</blockquote>
+
+<p>这其中隐藏层节点个数很关键，过少容易丢失特征，过多容易造成过拟合。具体的选择方法有以下几种</p>
+</blockquote>
+
+<p><img src="/img/sEMG-paper/hidden_layers.PNG" alt="error" />
+<img src="/img/sEMG-paper/hidden_layer_2.PNG" alt="error" /></p>
+
+<h3 id="u-输入输出设计-u"><u>输入输出设计</u></h3>
+
+<blockquote>
+<p>实验采集两通道肌电信号，每个通道提取 <b>iEMG，SD，MPF，MF </b>四个特征值，
+形成{iEMG1,SD1,MF1,MPF1,iEMG2,SD2,MF2,MPF2}8 维特征向量，因此<b>n =8</b>，输出
+5 个动作模式，则 m =5。每个动作采集 20 次，共 100 组数据，任取 50 组为训练样
+本，剩下 50 组为测试样本，则 k =50。由<b>公式 1）</b>得：1n &gt;5，由<b>公式 2）</b>得：5≤
+n ≤14，
+由<b>公式 3）</b>得：n =3。综合考虑三个公式结果，隐层节点个数的取值范围是 5&lt;
+n ≤14，
+经过多次实验发现隐层节点数n =9 时效果最好。<br />
+output的5个标签分别是<b>上翻、下翻、内收、外展和休息</b>，以向量
+O =[o1 o2 o3 o4 o5]形式表示.每个目标向量中有且仅有一个
+元素io 为 1，其余元素全部为 0，i 的位置与动作相对应。5 个动作的目标值分别为<b>上
+翻[00001]、下翻[00010]、内收[00100]、外展[01000]和休息[10000]</b>。利用测试样本进
+行预测时，如果某个节点的值最大，则认为是 1，其余节点全部处理为 0。最后找出
+网络输出属于哪一类，还原成标签 1,2,3,4,5。</p>
+
+<p><b><u>最终选取 BP 神经网络的输入节点数为 8，隐含层节
+点数为 9，输出节点数为 5，构成 8-9-5 BP 神经网络模型</u></b></p>
+</blockquote>
+
+<p><img src="/img/sEMG-paper/BP_network.PNG" alt="error" /></p>
+
+<blockquote>
+<p>之后是训练平台的搭建，基本是硬件知识，不太懂，暂不介绍。</p>
+</blockquote>
 
     </div>
         </div>
